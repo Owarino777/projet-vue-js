@@ -1,4 +1,14 @@
-export type IconName = 'star' | 'trophy' | 'hourglass'
+export type IconName =
+  | 'star'
+  | 'trophy'
+  | 'hourglass'
+  | 'controller'
+  | 'clapper'
+  | 'crown'
+  | 'fire'
+  | 'medal'
+  | 'ticket'
+  | 'popcorn'
 
 export interface Stats {
   watchedCount: number
@@ -35,19 +45,18 @@ function byMinutes(id: string, n: number, label: string, description: string, ic
 }
 
 export const ACHIEVEMENTS: AchievementDef[] = [
-  // Tes succès d'origine
   {
     id: 'first-watch',
     label: 'Première séance',
     description: 'Regarder 1 film',
-    icon: 'star',
+    icon: 'clapper',
     check: (s) => s.watchedCount >= 1,
   },
   {
     id: 'marathon',
     label: 'Marathon',
     description: 'Regarder 5 films',
-    icon: 'trophy',
+    icon: 'fire',
     check: (s) => s.watchedCount >= 5,
   },
   {
@@ -59,24 +68,24 @@ export const ACHIEVEMENTS: AchievementDef[] = [
   },
 
   // Palier par nombre de films
-  byCount('watch-3', 3, 'Échauffement', 'Regarder 3 films', 'star'),
-  byCount('watch-10', 10, 'Cinéphile débutant', 'Regarder 10 films', 'trophy'),
-  byCount('watch-20', 20, 'Binge watcher', 'Regarder 20 films', 'trophy'),
-  byCount('watch-30', 30, 'No life du cinéma', 'Regarder 30 films', 'trophy'),
-  byCount('watch-40', 40, 'Toujours plus', 'Regarder 40 films', 'trophy'),
+  byCount('watch-3', 3, 'Échauffement', 'Regarder 3 films', 'ticket'),
+  byCount('watch-10', 10, 'Cinéphile débutant', 'Regarder 10 films', 'star'),
+  byCount('watch-20', 20, 'Binge watcher', 'Regarder 20 films', 'controller'),
+  byCount('watch-30', 30, 'No life du cinéma', 'Regarder 30 films', 'fire'),
+  byCount('watch-40', 40, 'Toujours plus', 'Regarder 40 films', 'medal'),
   byCount('watch-50', 50, 'Cinéphage', 'Regarder 50 films', 'trophy'),
   byCount('watch-60', 60, 'Visionneur compulsif', 'Regarder 60 films', 'trophy'),
-  byCount('watch-70', 70, 'Salle obscure virtuelle', 'Regarder 70 films', 'trophy'),
-  byCount('watch-80', 80, 'Projection privée', 'Regarder 80 films', 'trophy'),
-  byCount('watch-90', 90, 'Collectionneur de crédits', 'Regarder 90 films', 'trophy'),
-  byCount('watch-100', 100, 'Centenaire', 'Regarder 100 films', 'trophy'),
+  byCount('watch-70', 70, 'Salle obscure virtuelle', 'Regarder 70 films', 'clapper'),
+  byCount('watch-80', 80, 'Projection privée', 'Regarder 80 films', 'ticket'),
+  byCount('watch-90', 90, 'Collectionneur de crédits', 'Regarder 90 films', 'popcorn'),
+  byCount('watch-100', 100, 'Centenaire', 'Regarder 100 films', 'crown'),
 
   // Paliers de temps
   byMinutes('time-300', 300, 'Mini marathon', 'Cumuler 300 minutes de visionnage', 'hourglass'),
-  byMinutes('time-900', 900, 'Soirée ciné', 'Cumuler 900 minutes de visionnage (15h)', 'hourglass'),
-  byMinutes('time-1800', 1800, 'Weekend ciné', 'Cumuler 1800 minutes de visionnage (30h)', 'hourglass'),
-  byMinutes('time-3600', 3600, 'Semaine cinéma', 'Cumuler 3600 minutes de visionnage (60h)', 'hourglass'),
-  byMinutes('time-7200', 7200, 'No sleep', 'Cumuler 7200 minutes de visionnage (120h)', 'hourglass'),
+  byMinutes('time-900', 900, 'Soirée ciné', 'Cumuler 900 minutes de visionnage (15h)', 'popcorn'),
+  byMinutes('time-1800', 1800, 'Weekend ciné', 'Cumuler 1800 minutes de visionnage (30h)', 'ticket'),
+  byMinutes('time-3600', 3600, 'Semaine cinéma', 'Cumuler 3600 minutes de visionnage (60h)', 'medal'),
+  byMinutes('time-7200', 7200, 'No sleep', 'Cumuler 7200 minutes de visionnage (120h)', 'fire'),
 
   // Série de succès “combo films”
   byCount('combo-5', 5, 'Combo 5', 'Atteindre 5 films au total', 'star'),
