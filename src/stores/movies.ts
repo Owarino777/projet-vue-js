@@ -1,8 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
-import type { AddedMovie } from '@/types/omdb'
-import type { OmdbSearchItem } from '@/types/omdb'
+import type { AddedMovie, OmdbSearchItem } from '@/types/omdb'
 import { getMovieDetail, searchMovies } from '@/services/omdb'
 import { parseRuntimeToMinutes } from '@/utils/format'
 
@@ -47,7 +46,9 @@ export const useMoviesStore = defineStore('movies', () => {
     results.value = []
     resultsTotal.value = 0
     searchError.value = null
+
     if (!query.value) return
+
     try {
       searching.value = true
       const res = await searchMovies(query.value, '1')

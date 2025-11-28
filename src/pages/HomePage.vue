@@ -5,12 +5,22 @@
       <div style="max-width: 720px; margin: 0 auto;">
         <SearchBar v-model="q" :auto="true" :disabled="searching" @search="onSearch" />
         <p class="text-muted mb-2" aria-live="polite">
-          <span v-if="q && !searching && !error">{{ results.length }} résultat(s)</span>
+          <span v-if="q && !searching && !error">{{ filteredResults.length }} résultat(s)</span>
           <span v-if="error">{{ error }}</span>
         </p>
 
-        <ul v-if="results.length" class="grid" style="gap: var(--space-3);" aria-label="Résultats de recherche">
-          <li v-for="r in results" :key="r.imdbID" class="card" style="padding: var(--space-3); list-style:none;">
+        <ul
+          v-if="filteredResults.length"
+          class="grid"
+          style="gap: var(--space-3);"
+          aria-label="Résultats de recherche"
+        >
+          <li
+            v-for="r in filteredResults"
+            :key="r.imdbID"
+            class="card"
+            style="padding: var(--space-3); list-style:none;"
+          >
             <div class="flex items-center gap-4">
               <img
                 v-if="r.Poster && r.Poster !== 'N/A'"
@@ -46,6 +56,7 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useMoviesStore } from '@/stores/movies'
 import SearchBar from '@/components/molecules/SearchBar.vue'
@@ -54,13 +65,26 @@ import AppButton from '@/components/atoms/AppButton.vue'
 import type { OmdbSearchItem } from '@/types/omdb'
 
 const store = useMoviesStore()
-const { query, searching, searchError, results, sortedItems, watchedCount, watchedTotalMinutes } =
-  storeToRefs(store)
+const {
+  query,
+  searching,
+  searchError,
+  results,
+  sortedItems,
+  watchedCount,
+  watchedTotalMinutes,
+  items,              // <-- on récupère aussi la liste complète
+} = storeToRefs(store)
 
 const q = query
 const error = searchError
 const sorted = sortedItems
 const watchedMinutes = watchedTotalMinutes
+
+// Résultats filtrés : on enlève ceux déjà dans la watchlist
+const filteredResults = computed(() =>
+  results.value.filter((r) => !items.value.some((m) => m.id === r.imdbID))
+)
 
 function onSearch(v: string) {
   store.doSearch(v)

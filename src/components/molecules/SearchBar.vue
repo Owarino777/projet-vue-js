@@ -32,16 +32,23 @@ const emit = defineEmits<{
 }>()
 
 const local = ref(props.modelValue)
+
 watch(
   () => props.modelValue,
   (v) => (local.value = v)
 )
 watch(local, (v) => emit('update:modelValue', v))
 
-const debounced = useDebouncedFn(() => emit('search', local.value), 400)
-function onSubmit() {
-  emit('search', local.value)
+function safeSearch() {
+  emit('search', local.value.trim())
 }
+
+const debounced = useDebouncedFn(() => safeSearch(), 400)
+
+function onSubmit() {
+  safeSearch()
+}
+
 watch(
   () => local.value,
   () => {
