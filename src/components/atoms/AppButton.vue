@@ -30,18 +30,29 @@ defineEmits<{ (e: 'click', ev: MouseEvent): void }>()
   color: var(--color-text);
   border-radius: 8px;
   cursor: pointer;
-  transition: background .15s ease, border-color .15s ease;
+  transition: background .15s ease, border-color .15s ease, color .15s ease;
 }
 .app-btn:disabled { opacity: .6; cursor: not-allowed; }
+
 .app-btn--primary {
   background: var(--color-primary);
   border-color: var(--color-primary);
   color: var(--color-primary-contrast);
 }
+.app-btn--primary:hover:not(:disabled) {
+  background: var(--color-primary-hover);
+  border-color: var(--color-primary-hover);
+}
+
 .app-btn--ghost {
   background: transparent;
 }
+
 .app-btn--sm { padding: 6px 10px; font-size: var(--font-size-sm); }
 .app-btn--md { padding: 10px 14px; font-size: var(--font-size-base); }
-.app-btn:hover:not(:disabled) { filter: brightness(1.05); }
+
+/* On garde un hover léger pour le reste */
+.app-btn:hover:not(:disabled) {
+  /* pas de filter ici pour ne pas casser le contraste des variantes */
+}
 </style>

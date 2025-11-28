@@ -173,6 +173,6 @@ function iconSvg(name: IconName) {
 }
 .progress-bar__fill {
   height: 100%;
-  background: linear-gradient(90deg, #4f7cff, #61d98b);
+  background: linear-gradient(90deg, #2b6bff, #61d98b); /* ancien: #4f7cff */
 }
 </style>
